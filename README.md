@@ -1,3 +1,4 @@
+<h1>FastAPI4</h1>
 Das Programm ist eine Webanwendung, die mit dem Framework FastAPI entwickelt wurde. Es bietet mehrere Funktionen, darunter:
     Benutzerverwaltung: Erstellung und Authentifizierung von Benutzern (inklusive Admin-Funktionalität).
     Artikelverwaltung: Erstellung, Bearbeitung, Anzeige und Löschung von Artikeln.
