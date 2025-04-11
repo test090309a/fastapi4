@@ -1,0 +1,585 @@
+/* Basis-Stile für das gesamte Projekt */
+body,
+html {
+    background-color: #222;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* font-family: Arial, sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    min-width: 600px;
+}
+
+/* Navigation */
+/* Navigation Link Vorschläge:
+   1. Startseite und Artikel
+   2. Home und Galerie
+   3. Übersicht und Beiträge
+*/
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(51, 51, 51, 0.07);
+    padding: 0 20px;
+    height: 75px;
+}
+
+.nav-links a.btn {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 8px 12px;
+    background-color: #555;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.nav-links a.btn:hover {
+    background-color: #777;
+}
+
+.logout-button {
+    background-color: #d9534f !important;
+}
+
+.logout-button:hover {
+    background-color: #c9302c !important;
+}
+
+/* Hauptinhalt */
+main {
+    min-height: calc(98% - 125px);
+    /* 75px Nav + 50px Footer */
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #222;
+    color: #fff;
+    height: 50px;
+    padding: 0 20px;
+}
+
+.footer a.footer-link {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+/* Galerie (Hero-Carousel) */
+.gallery {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 125px);
+    overflow: hidden;
+}
+
+.gallery-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    /* height: 300px; */ /* Feste Höhe für den Container */
+    overflow: hidden; /* Verhindert Überlauf */
+}
+
+.gallery-item.active {
+    opacity: 1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; /* Zentriert horizontal, oben vertikal */
+    /* max-height: 300px; */ /* Begrenzt die maximale Höhe */
+  }
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    color: #fff;
+    min-width: 500px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+.gallery-caption h3 {    
+    font-size: 3em;
+}
+
+/* Navigationspfeile für Galerie */
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3em;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 10px;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+/* Fortschrittsbalken in der Galerie */
+.progress-bar {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.progress-bar div {
+    background-color: #aaa;
+    width: 20px;
+    height: 5px;
+    border-radius: 2px;
+}
+.progress-bar div.active {
+    background-color: #fff;
+}
+
+
+/* Artikel Grid */
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.article-card {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Edit-Seite */
+.edit-container {
+    /* max-width: 800px; */
+    margin: 20px auto;
+    padding: 20px;
+    color: aliceblue
+}
+
+.edit-container form {
+    margin-bottom: 20px;
+}
+
+.edit-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.edit-container input,
+.edit-container textarea {
+    width: 98%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.upload-forms {
+    margin-top: 20px;
+}
+
+
+/***LOGIN SVG BILD*******************/
+.btn-center {
+    align-items: center; /* Vertikal zentrieren */
+    justify-content: center; /* Horizontal zentrieren */
+    gap: 8px; /* Abstand zwischen Text und SVG (optional) */
+    padding: 8px 16px; /* Innenabstand des Buttons */
+    line-height: 1; /* Zeilenhöhe auf 1 setzen, um unerwünschte Abstände zu vermeiden */
+}
+
+.btn-center svg {
+    width: 24px; /* SVG-Größe anpassen */
+    height: 24px;
+    vertical-align: middle; /* Zusätzliche Sicherheit für die vertikale Ausrichtung */
+}
+
+/**********************/
+/* Stil für die messageBox */
+/* Dismissible Nachricht */
+.message-box .message-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.message-box {
+    position: fixed; /* Fixiere die Position */
+    top: 50%; /* Beginne bei 50% von oben */
+    left: 50%; /* Beginne bei 50% von links */
+    transform: translate(-50%, -50%); /* Zentriere genau in der Mitte */
+    /* background-color: #5cb85c; */
+    color: #fff;
+    padding: 15px 20px; /* Innenabstand */
+    border-radius: 5px; /* Abgerundete Ecken */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Schatten */
+    z-index: 1000; /* Stelle sicher, dass die Box über allem anderen liegt */
+    text-align: center; /* Text zentrieren */
+    display: none; /* Standardmäßig ausgeblendet */
+    opacity: 0.95;
+}
+
+/* Stil für Erfolgsmeldungen (optional) */
+.message-box.success {
+    background-color: #059928; /* Grüner Hintergrund */
+    color: #dedede; /* Dunkelgrüner Text */
+}
+
+/* Stil für Fehlermeldungen */
+.message-box.error {
+    background-color: #a60815 !important; /* Roter Hintergrund */
+    color: #dedede !important; /* Dunkelroter Text */
+}
+
+
+/****************** The M O D A L (background) *********************************/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.07); /* Black w/ opacity */
+    min-width: 600px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    /* background-color: rgba(0, 0, 0, 0.35); */
+    background-image: linear-gradient(to bottom right, rgb(182, 180, 180), rgb(31, 31, 31));
+    margin: 12% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 80%;
+}
+
+/* Verbesserte Lesbarkeit im Modal: Nur die Textzeile bekommt einen Hintergrund */
+.modal-text-line {
+    background-color: rgba(255,255,255,0.2);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+/* === Kontaktformular === */
+/* Modernes, benutzerfreundliches Formular */
+.contact-form {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    background: #444;
+    color: #fff;
+}
+
+.contact-form button {
+    background: #555;
+    color: #fff;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: #666;
+}
+
+/* Responsives Login-Formular */
+.login-form {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #555;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #777;
+}
+
+/* Admin Dashboard Cards */
+.dashboard-card {
+    background-color: #444;
+    color: #fff;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.dashboard-card.upload { border-left: 5px solid #4CAF50; }
+.dashboard-card.uploadDelete { border-left: 5px solid #af4cad; }
+.dashboard-card.create { border-left: 5px solid #2196F3; }
+.dashboard-card.edit { border-left: 5px solid #FFC107; }
+.dashboard-card.users { border-left: 5px solid #E91E63; }
+
+/* Benutzerfreundliche Formulareingabefelder */
+input, textarea, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #777;
+}
+
+/* Scroll-to-Top Button im Stil einer stilisierten Maus */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    /* background-color: #555; */
+    border-radius: 50%;
+    width: 50px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+}
+
+/* Darstellung eines stilisierten Maus-Icons über ein Pseudo-Element */
+.scroll-to-top::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+
+    .navbar,
+    .footer {
+/*         flex-direction: column;
+ */        height: auto;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
+    .nav-links a.btn {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 0px;
+        padding: 4px 6px;
+        background-color: #555;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    .gallery-caption h3 {
+        font-size: 2em;
+    }
+
+    .modal-content {
+        background-color: rgba(0, 0, 0, 0.35);
+        margin: 17% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 5px; /* Abgerundete Ecken */
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+}
+
+/* Bild-Grid für Mehrfach-Bilder löschen */
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+/* Einzelne Bildkarte */
+.image-card {
+    background-color: #333;
+    border-radius: 5px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Bild in der Karte */
+.image-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+
+/* Label mit Checkbox – ganze Karte klickbar */
+.image-card label {
+    cursor: pointer;
+    display: block;
+}
+
+/* === Einheitliches Styling für alle Buttons === */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32); /* Grüner Verlauf */
+    border: none;
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 3D-Effekt durch Schatten */
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+}
+
+/* === Hover-Effekt: Farbänderung und Schattenanpassung === */
+.btn:hover {
+    background: linear-gradient(135deg, #66BB6A, #43A047);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px); /* Leichtes Anheben beim Hover */
+}
+
+/* === Aktiver Button (beim Klicken) === */
+.btn:active {
+    background: linear-gradient(135deg, #388E3C, #1B5E20);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(1px); /* Leichtes Einrücken */
+}
+
+/* === Spezielle Farben für verschiedene Buttons === */
+.btn-danger {
+    background: linear-gradient(135deg, #D32F2F, #B71C1C); /* Roter Verlauf */
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #E53935, #C62828);
+}
+
+.btn-danger:active {
+    background: linear-gradient(135deg, #B71C1C, #7F0000);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #616161, #424242); /* Grauer Verlauf */
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #757575, #616161);
+}
+
+.btn-secondary:active {
+    background: linear-gradient(135deg, #424242, #212121);
+}
+
+/* === Spezielle Anpassung für Buttons in Formularen === */
+form .btn {
+    /* width: 100%; */
+    padding: 14px;
+    font-size: 1.1em;
+}
+
+/* === Anpassung für mobile Endgeräte === */
+@media (max-width: 768px) {
+    .btn {
+        width: 100%; /* Auf kleinen Geräten ganze Breite nutzen */
+        font-size: 1em;
+    }
+}
+
+/* Artikel bearbeiten hervorheben. */
+.article-card.editing {
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+    border: 2px solid #FFC107;
+  }
+

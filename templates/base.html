@@ -1,0 +1,113 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Desktopfachkraft" }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link id="favicon" rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="/static/js/script.js" defer></script>
+</head>
+
+<body>
+    <!-- Dismissible Nachricht -->
+    {% if message %}
+
+    {% set message_class = 'success' if message in ['Login erfolgreich', 'Erfolgreich gespeichert'] else 'error' %}
+    <div class="message-box {{ message_class }}" id="messageBox">
+        <span>{{ message }}</span>
+        <button onclick="document.getElementById('messageBox').style.display='none'"
+            class="message-close btn-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg></button>
+    </div>
+    {% endif %}
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="/"><img src="/static/logo.svg" alt="Logo" width="75" height="75"></a>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="btn btn-secondary">Home</a>
+            <a href="/view" class="btn  btn-secondary">View</a>
+            {% if not token %} <!-- Zeige den Login-Button nur an, wenn der Benutzer NICHT eingeloggt ist -->
+            <a href="/edit" class="btn btn-center btn-secondary" title="Anmelden"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10 17 15 12 10 7" />
+                    <line x1="15" y1="12" x2="3" y2="12" />
+                </svg></a>
+            {% endif %}
+            {% if token %}
+            <a href="/edit" class="btn btn-center btn-danger">Admin Dashboard</a>
+            <a href="/logout" class="btn logout-button btn-center btn-secondary" title="Abmelden"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                    style="transform: rotate(180deg);">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10 17 15 12 10 7" />
+                    <line x1="15" y1="12" x2="3" y2="12" />
+                </svg></a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Hauptinhalt -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Scroll-to-Top Button (stilisiert als Maus) -->
+    <div id="scrollToTopBtn" class="scroll-to-top" title="Nach oben">
+        <!-- Sie können hier ein Icon oder eine stilisierte Maus einfügen -->
+    </div>
+
+    <!-- Footer (Links unscheinbar) -->
+    <footer class="footer">
+        <div class="footer-left">
+            <a href="/"><img src="/static/logo.svg" alt="Logo" width="50" height="50"></a>
+        </div>
+        <div class="footer-links">
+                <a href="#impressum" class="footer-link" data-message="<headline>Impressum</headline><p>DTF Freiberufliche Desktopfachkraft für Individuelle Webentwicklung<br><br></p>
+                <p style=line-height:2em;>Ich biete professionelle Webentwicklung auf Basis von FastAPI, kombiniert mit kreativen Lösungen durch ComfyUI und Invoke. Meine Arbeit umfasst die Konzeption, Entwicklung und Implementierung von Websites und Webanwendungen, die nicht nur ästhetisch ansprechend, sondern auch technisch ausgereift sind. Durch die Integration von KI-Tools optimiere ich Workflows und ermögliche innovative Ansätze in Design und Entwicklung. <br><br>Leidenschaft für Technologie und Design setzt Visionen in die digitale Realität um.</p>
+                <p style=font-size:.7em;position:relative;right:0px;text-align:right;> Wien 2025</p>">Impressum</a>
+            
+                <a href="#kontakt" class="footer-link"
+                data-message="<headline>Kontakt</headline>Senden Sie Ihre Nachricht:">Kontakt</a>
+        </div>
+
+        <!-- KONTAKTFORMULAR -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">DTF NFO
+                <span class="close">&times;</span>
+                <p id="modal-message"></p>
+                <div id="modal-content"><!--Kontaktformular contact_form.html oder Impressum, wird hier geladen. --></div>
+            </div>
+        </div>
+
+
+        {% if request.query_params.get("contact_success") %}
+        <div class="alert success message-box" id="messageBox">
+            Ihre Nachricht wurde gesendet!
+        </div>
+        {% endif %}
+
+        {% if request.query_params.get("contact_error") %}
+        <div class="alert error message-box" id="messageBox">
+            Fehler beim Senden der Nachricht. Bitte versuchen Sie es später erneut.
+        </div>
+        {% endif %}
+
+
+
+    </footer>
+</body>
+
+</html>

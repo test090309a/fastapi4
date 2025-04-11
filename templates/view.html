@@ -1,0 +1,16 @@
+<!-- templates/view.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="articles-grid">
+    {% for article in articles %}
+    <div class="article-card">
+        <h2>{{ article.title }}</h2>
+        <p><strong>Was:</strong> {{ article.description }}</p>
+        <p><strong>Wie:</strong> {{ article.content }}</p>
+        <p><strong>Warum:</strong> {{ article.description }}</p>
+        <p><strong>Author:</strong> {{ article.author }}</p>
+        <p><strong>Datum:</strong> {{ article.created_at.strftime("%d.%m.%Y") }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

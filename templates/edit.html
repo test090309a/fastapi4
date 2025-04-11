@@ -1,0 +1,158 @@
+<!-- templates/edit.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="edit-container">
+    <h2>Admin Dashboard</h2>
+    {% if not token %}
+    <form method="post" action="/edit" style="width: 50%;margin-left: 90px;">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" name="username" autofocus required>
+        <label for="password">Passwort:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="btn" style="width: 50%;">Login</button>
+    </form>
+    {% else %}
+    <!-- Abmelde-Knopf in der Navigation wird zusätzlich angezeigt -->
+    {% endif %}
+
+    {% if token %}
+    <div class="upload-forms">
+       
+
+
+        <div class="dashboard-card create">
+        <h3>Artikel Erstellen</h3>
+        <form method="post" action="/create_article">
+            <input type="hidden" name="token" value="{{ token }}">
+            <label for="title_article">Titel:</label>
+            <input type="text" id="title_article" name="title" required>
+            <label for="description_article">Beschreibung:</label>
+            <input type="text" id="description_article" name="description" required>
+            <label for="content">Inhalt:</label>
+            <textarea id="content" name="content" required></textarea>
+            <label for="author">Author:</label>
+            <!-- <input type="text" id="author" name="author" value="admin" readonly> -->
+            <input type="text" id="author" name="author" value="" required>{{ username }}
+            <label for="category_article">Kategorie:</label>
+        <select id="category_article" name="category" required>
+            {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn">Artikel erstellen</button>
+        </form>
+        </div>
+
+        <div class="dashboard-card edit">
+        <h3>Artikel bearbeiten / löschen</h3>
+        <ol>
+            {% for article in articles %}
+            <li>
+                {{ article.title }} -
+                <a href="/edit/article/{{ article.id }}?token={{ token }}" class="btn">Bearbeiten</a>
+                <form method="post" action="/edit/article/{{ article.id }}/delete" style="display:inline;">
+                    <input type="hidden" name="token" value="{{ token }}">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Artikel wirklich löschen?');">Löschen</button>
+                </form>
+            </li><hr>
+            {% endfor %}
+        </ol>
+        </div>
+
+        <div class="dashboard-card uploadDelete">
+            <h3>Hochgeladene Bilder löschen</h3>
+            <form method="post" action="/edit/images/delete">
+                <input type="hidden" name="token" value="{{ token }}">
+                <!-- Bild-Grid zur übersichtlichen Darstellung der hochgeladenen Bilder -->
+                <div class="image-grid"  id="sortableGrid">
+                    {% for image in images %}
+                    <div class="image-card" data-id="{{ image.id }}">
+                        <!-- Checkbox zur Auswahl des Bildes -->
+                        <label>
+                            <input type="checkbox" name="image_ids" value="{{ image.id }}">
+                            <img src="/{{ image.file_path }}" alt="{{ image.title }}">
+                        </label>
+                        <p>{{ image.title }}</p>
+                    </div>
+                    {% endfor %}
+                </div><br>
+                <button type="submit" class="btn" onclick="return confirm('Ausgewählte Bilder wirklich löschen?');">
+                    Ausgewählte Bilder löschen
+                </button>
+            </form>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+        <script>
+          new Sortable(document.getElementById('sortableGrid'), {
+            animation: 150,
+            onEnd: async (evt) => {
+              const imageIds = Array.from(evt.from.children).map(img => img.dataset.id);
+              await fetch('/update_image_order', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({order: imageIds, token: '{{ token }}'})
+              });
+            }
+          });
+        </script>        
+
+        <div class="dashboard-card upload">
+            <h3>Mehrere Bilder Upload</h3>
+            <form method="post" action="/upload_image" enctype="multipart/form-data" id="multiUploadForm">
+                <input type="hidden" name="token" value="{{ token }}">
+                <label for="title">Titel:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="description">Beschreibung:</label>
+                <input type="text" id="description" name="description">
+                <label for="category">Kategorie (optional):</label>
+                <input type="text" id="category" name="category">
+                <!-- Drag & Drop Upload-Zone -->
+                <div class="upload-dropzone" id="uploadDropzone">
+                    <p>Ziehe Bilder hierher oder klicke, um sie auszuwählen</p>
+                    <input type="file" id="file" name="files" multiple required>
+                </div>
+                <!-- Vorschaubereich für ausgewählte Bilder -->
+                <div class="upload-preview" id="uploadPreview"></div>
+                <button type="submit" class="btn">Bilder hochladen</button>
+            </form>
+        </div>
+
+        <div class="dashboard-card users">
+        <!-- Benutzer Verwaltung -->
+        <h2>Benutzerverwaltung</h2>
+
+        <div class="dashboard-card users">
+        <h3>Benutzer erstellen</h3>
+        <form action="/edit/user/create" method="post">
+            <input type="hidden" name="token" value="{{ token }}">
+            <label for="username">Benutzername:</label><br>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Passwort:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="submit" value="Benutzer erstellen">
+        </form>
+    
+        <h3 style="margin-top: 30px; border-top: 1px solid #666; padding-top: 20px;">Benutzer löschen</h3>
+        <ul>
+            {% for user in users %}
+                <li>
+                    {{ user.username }}
+                    <form action="/edit/user/{{ user.id }}/delete" method="post" style="display: inline;">
+                        <input type="hidden" name="token" value="{{ token }}">
+                        <input type="submit" value="Löschen">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        </div>
+        </div>
+
+        {% if message %}
+        <div class="message-box {{ message_type }}">{{ message }}</div>
+      {% endif %}
+
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

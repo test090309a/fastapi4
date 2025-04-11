@@ -1,0 +1,69 @@
+Hilfe & Dokumentation zur FastAPI Bildergalerie
+Projektübersicht
+
+Diese Anwendung ist eine moderne Bildergalerie mit FastAPI, die es Administratoren ermöglicht, Bilder und Artikel zu verwalten.
+Hauptfunktionen:
+
+    Admin-Authentifizierung mit JWT
+    Artikelverwaltung (Erstellen, Bearbeiten, Löschen)
+    Mehrfach-Upload von Bildern
+    Dynamisches Hero-Carousel zur Bildanzeige
+    Kategorie-Filterung für Artikel und Bilder
+    Sitzungsverwaltung für eine persistente Anmeldung
+
+Technische Umsetzung
+1. Benutzerverwaltung & Authentifizierung
+
+    JWT-Token wird für die Sitzungsverwaltung verwendet.
+    Beim erfolgreichen Login wird das Token im HTTP-Only-Cookie gespeichert.
+    Die Route /edit überprüft dieses Token und erlaubt nur Administratoren den Zugriff.
+    Verbesserung: Persistente Authentifizierung – Der Admin bleibt eingeloggt, auch wenn zwischen Seiten gewechselt wird.
+
+2. Artikelverwaltung
+
+    Artikel können über /edit erstellt, bearbeitet und gelöscht werden.
+    Datenbank:
+        Verwendet SQLAlchemy mit SQLite für Artikel- und Bildspeicherung.
+        Vorgegebene Kategorien: Wissen, KI, Privat, Projekt.
+    Frontend-Optimierung:
+        Eine Artikel-Liste zeigt bestehende Inhalte zur Bearbeitung an.
+        Der "Login erfolgreich"-Hinweis wird als z-index Banner mit CSS dargestellt und kann per Klick entfernt werden.
+
+3. Bildverwaltung & Galerie
+
+    Hochladen mehrerer Bilder gleichzeitig mit FastAPI UploadFile und shutil.
+    Bilder werden gespeichert und in einer Datenbank mit Referenz zu Artikeln abgelegt.
+    Bilder löschen:
+        Ein Admin kann hochgeladene Bilder direkt aus der Galerie entfernen.
+    Darstellung:
+        Hero-Carousel mit JavaScript & CSS Animationen für eine moderne Bildanzeige.
+        Lazy Loading für optimierte Ladezeiten.
+
+4. Navigation & UI/UX
+
+    Einheitliche Navigation:
+        Alle interaktiven Links (außer im Footer) sind als Buttons gestaltet.
+        Der Admin-Abmeldeknopf ist prominent sichtbar in der Navigation.
+    Footer-Design:
+        Unauffällige Links für Impressum & Kontakt.
+    Responsives Layout:
+        Verwendet CSS Grid & Flexbox für eine optimale Darstellung auf Desktop & Mobilgeräten.
+        Bootstrap oder Tailwind für moderne CSS-Features.
+
+Warum diese Implementierung?
+
+    Sicherheit: JWT sorgt für eine sichere Authentifizierung ohne lokale Speicherung sensibler Daten.
+    Benutzerfreundlichkeit: Admins bleiben eingeloggt & können Inhalte intuitiv verwalten.
+    Performance:
+        Lazy Loading reduziert die Ladezeit der Bildergalerie.
+        Optimierte Datenbankabfragen minimieren die Serverlast.
+    Modernes Design:
+        Hero-Carousel & CSS Animationen für eine dynamische Bildpräsentation.
+        Einheitliches Button-Design verbessert die Nutzerführung.
+
+Zusätzliche Features für die Zukunft
+
+    Erweiterung auf PostgreSQL für bessere Skalierbarkeit.
+    Drag & Drop Upload für Bilder.
+    Bildbearbeitungsoptionen (Zuschneiden, Filter).
+    Erweiterte Such- und Filterfunktionen für Artikel & Bilder.
