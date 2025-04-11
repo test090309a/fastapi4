@@ -1,40 +1,37 @@
-# fastapi4
-Bildgalerie mit Administration.
+Das Programm ist eine Webanwendung, die mit dem Framework FastAPI entwickelt wurde. Es bietet mehrere Funktionen, darunter:
+    Benutzerverwaltung: Erstellung und Authentifizierung von Benutzern (inklusive Admin-Funktionalität).
+    Artikelverwaltung: Erstellung, Bearbeitung, Anzeige und Löschung von Artikeln.
+    Bildverwaltung: Hochladen, Löschen und Sortieren von Bildern, die in einer Bildergalerie angezeigt werden.
+    Kategorien: Verwaltung von Kategorien zur Organisation von Artikeln.
+    Login und Logout: Authentifizierung über JWT-Tokens, die als Cookies gespeichert werden.
 
-Ein Python Programm, das mit Uvicorn/FastApi eine Website zeigt.
-Es lauft in einem Hero-Carousel eine Bildgalerie, 
-welche als Admin bearbeitet werden kann.
+Verwendete Module:
+Das Programm nutzt verschiedene Python-Bibliotheken und Module:
+    FastAPI: Für die Entwicklung der API-Endpunkte und die Webanwendung.
+    SQLAlchemy: Für die Interaktion mit der Datenbank (ORM).
+    Jinja2: Für die Template-Engine zur Darstellung der HTML-Seiten.
+    Datetime: Zur Berechnung von Zeitintervallen für Token-Ablaufzeiten.
+    Shutil und OS: Für Dateiverwaltung (z. B. Löschen von Bilddateien).
+    Pydantic: Für die Validierung der Datenmodelle.
+    Typing: Zur Typisierung von Daten (z. B. Listen).
 
-CRUD
-Artikel erstellen. @work
-Bilder laden und sortieren.
+API-Schnittstellen:
+Das Programm stellt mehrere API-Endpunkte bereit:
+    GET /: Zeigt die Startseite mit einer Bildergalerie.
+    GET /view: Listet alle Artikel auf einer Ansichtsseite auf.
+    GET /edit: Zeigt die Bearbeitungsseite für Artikel, Bilder und Benutzer (nur für Admins).
+    POST /edit: Authentifiziert Benutzer und setzt ein JWT-Cookie.
+    POST /upload_image: Ermöglicht das Hochladen von Bildern (nur für Admins).
+    POST /create_article: Erstellt neue Artikel und ordnet sie Kategorien zu (nur für Admins).
+    POST /edit/article/{article_id}: Aktualisiert bestehende Artikel (nur für Admins).
+    POST /edit/article/{article_id}/delete: Löscht einen Artikel (nur für Admins).
+    POST /edit/image/{image_id}/delete: Löscht ein Bild aus der Galerie (nur für Admins).
+    POST /edit/images/delete: Löscht mehrere Bilder gleichzeitig und aktualisiert deren Reihenfolge (nur für Admins).
+    GET /logout: Loggt den Benutzer aus, indem das Token-Cookie gelöscht wird.
 
-
----jn 11.04.2025
-Commit NFO
-    Why have I made these changes?
-    What effect have my changes made?
-    Why was the change needed?
-    What are the changes in reference to?
-
-JWT-Token als Cookie
-Jinja2Templates
-
-Api Schnittstellen:
-    / -> index.html
-    /view -> edit.html
-    /edit -> edit.html
-    /edit/image/image_id/delete -> Bilder löschen
-    /edit/images/delete -> Mehrere Bilder löschen
-    /logout -> /
-    /upload_image ->
-    /create_article -> /view
-    /edit/article -> /edit
-    /edit/article/article_id ->edit.html
-    /edit/article/article_id/delete -> edit.html
-    /edit/user/create -> edit.html
-    /edit/user/user_id/delete -> edit.html
-    /submit_contact_form -> contact_form.html
-    /submit_contact -> ?contact_success=true/contact_error=true
-    /update_image_order -> Bilder sortieren
-
+Datenbankmodelle:
+Die Anwendung verwendet folgende Modelle:
+    User: Für Benutzerinformationen wie Benutzernamen und Passwörter.
+    Article: Für Artikel mit Titel, Beschreibung, Inhalt und zugehöriger Kategorie.
+    Category: Für Kategorien zur Organisation von Artikeln.
+    Image: Für Bilder mit Titel, Beschreibung und Dateipfad.
