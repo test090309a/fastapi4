@@ -1,4 +1,4 @@
-FastAPI4
+FastAPI4__
 Das Programm ist eine Webanwendung, die mit dem Framework FastAPI entwickelt wurde. Es bietet mehrere Funktionen, darunter: Benutzerverwaltung: Erstellung und Authentifizierung von Benutzern (inklusive Admin-Funktionalität). Artikelverwaltung: Erstellung, Bearbeitung, Anzeige und Löschung von Artikeln. Bildverwaltung: Hochladen, Löschen und Sortieren von Bildern, die in einer Bildergalerie angezeigt werden. Kategorien: Verwaltung von Kategorien zur Organisation von Artikeln. Login und Logout: Authentifizierung über JWT-Tokens, die als Cookies gespeichert werden.
 
 Verwendete Module: Das Programm nutzt verschiedene Python-Bibliotheken und Module: FastAPI: Für die Entwicklung der API-Endpunkte und die Webanwendung. SQLAlchemy: Für die Interaktion mit der Datenbank (ORM). Jinja2: Für die Template-Engine zur Darstellung der HTML-Seiten. Datetime: Zur Berechnung von Zeitintervallen für Token-Ablaufzeiten. Shutil und OS: Für Dateiverwaltung (z. B. Löschen von Bilddateien). Pydantic: Für die Validierung der Datenmodelle. Typing: Zur Typisierung von Daten (z. B. Listen).
